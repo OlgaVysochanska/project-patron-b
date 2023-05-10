@@ -1,11 +1,12 @@
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 const HttpError = require("../../Helpers/HttpError");
 const User = require("../../models/user-model");
 const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 const { sendMail } = require("../../Helpers");
 
-const { BASE_URL } = process.env;
+const { SECRET_KEY } = process.env;
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -15,29 +16,40 @@ const register = async (req, res) => {
     throw HttpError(409, "Email in use");
   }
 
+  const token = jwt.sign({ email }, SECRET_KEY, {expiresIn: "23h"});
   const hashPassword = await bcrypt.hash(password, 1);
-  const avatarURL = gravatar.url(email);
-  const verificationToken = nanoid();
 
   const result = await User.create({
     ...req.body,
+    token,
     password: hashPassword,
-    avatarURL,
-    verificationToken,
+    verify: true,
   });
-    
-    const verificationEmail = {
-        to: email,
-        subject: "Verify email",
-        html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Click verify email</a>`,
-    }
-    
-    await sendMail(verificationEmail)
+
+//    user(idUser:idUser,
+// uriImage:string, 
+// name:string,
+// Mail:string,
+// Phone:string,
+// City: string,
+// MyPets:[idPet,idPet],
+// MyAbs:[idPet,idPet],
+// Favourite:[idPet]) 
+// і pets({
+//   idPet: I’d,
+// NamePet:string,
+// Birthday: ,
+// Bread: Pokémon,
+// Location: Kiev,
+// Sex: string,
+// Category:[sell, lost, in goodhands, myPet],
+// })
 
   res.status(201).json({
     user: {
       email: result.email,
-      subscription: "starter",
+      verify: result.verify,
+      token: result.token,
     },
   });
 };

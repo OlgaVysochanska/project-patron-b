@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 const handleMongooseError = require("../utils/handleMongooseError");
 
-
 const userSchema = new Schema(
   {
     password: {
@@ -13,10 +12,29 @@ const userSchema = new Schema(
       required: [true, "Email is required"],
       unique: true,
     },
-    subscription: {
+    name: {
       type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter",
+      default: "",
+    },
+    phone: {
+      type: String,
+      default: "",
+    },
+    city: {
+      type: String,
+      default: "",
+    },
+    myPets: {
+      type: Array,
+      default: [],
+    },
+    myAbs: {
+      type: Array,
+      default: [],
+    },
+    favorite: {
+      type: Array,
+      default: [],
     },
     token: {
       type: String,
@@ -24,15 +42,11 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      required: true,
+      default: "",
     },
     verify: {
       type: Boolean,
       default: false,
-    },
-    verifycationToken: {
-      type: String,
-      default: "",
     }
   },
   { versionKey: false, timestamps: true }
