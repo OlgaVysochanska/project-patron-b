@@ -1,11 +1,20 @@
-const app = require("./app");
+const mongoose = require('mongoose');
 
-const connectDB = require("./config");
+const app = require('./app');
 
-connectDB();
+// зберігається в env
+// const DB_HOST = "mongodb+srv://ivanpanin:N9qUAWfq3gBavJnq@cluster0.amkeg2b.mongodb.net/db-cyber-bobik?retryWrites=true&w=majority";
 
-const { PORT } = process.env;
+const { DB_HOST } = process.env;
 
-app.listen(PORT, () => {
-  console.log("Server running. Use our API on port: 5000");
-});
+mongoose.set('strictQuery', true);
+
+mongoose.connect(DB_HOST)
+  .then(() => {
+    app.listen(3000);
+    console.log("Database connection successful")
+  })
+  .catch(error => {
+    console.log(error.message);
+    process.exit(1);
+})
