@@ -1,3 +1,7 @@
+require('dotenv').config();
+const express = require("express");
+const logger = require('morgan')
+const cors = require('cors')
 const petsRouter = require("./routes/api");
 const authRouters = require("./routes/api/authRouters");
 const friendsRouter = require("./routes/api/friends");

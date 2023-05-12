@@ -17,6 +17,10 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    birthday: {
+      type: String,
+      default: "",
+    },
     phone: {
       type: String,
       default: "",
@@ -44,7 +48,7 @@ const userSchema = new Schema(
     avatarURL: {
       type: String,
       default: "",
-    }
+    },
   },
   { versionKey: false, timestamps: true }
 );
