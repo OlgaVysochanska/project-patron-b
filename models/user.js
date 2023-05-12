@@ -37,7 +37,7 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
-    favorite: {
+    favoriteAbs: {
       type: Array,
       default: [],
     },
