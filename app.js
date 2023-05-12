@@ -1,7 +1,5 @@
-const express = require('express');
-const logger = require('morgan');
-const cors = require('cors');
-require('dotenv').config();
+const petsRouter = require("./routes/api");
+
 
 const authRouters = require('./routes/api/authRouters')
 
@@ -13,7 +11,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
-
+app.use("/api/pets", petsRouter);
 app.use('/api/auth', authRouters)
 
 app.use((req, res) => {
