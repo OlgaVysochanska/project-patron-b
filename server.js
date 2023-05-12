@@ -6,6 +6,7 @@ const app = require('./app');
 // const DB_HOST = "mongodb+srv://ivanpanin:N9qUAWfq3gBavJnq@cluster0.amkeg2b.mongodb.net/db-cyber-bobik?retryWrites=true&w=majority";
 
 const { DB_HOST } = process.env;
+console.log(process.env.DB_HOST)
 
 mongoose.set('strictQuery', true);
 
