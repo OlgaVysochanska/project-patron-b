@@ -1,4 +1,4 @@
-const ctrlWrapper = require("../../helpers/ctrlWrapper");
+const ctrlWrapper = require("../../helpers");
 const current = require("./current");
 const login = require("./login");
 const logout = require("./logout");

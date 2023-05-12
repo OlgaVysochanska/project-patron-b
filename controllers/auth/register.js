@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const HttpError = require("../../Helpers/HttpError");
-const User = require("../../models/user");
+const HttpError = require("../../helpers");
+const User = require("../../models");
 
 const { SECRET_KEY } = process.env;
 
@@ -21,8 +21,7 @@ const register = async (req, res) => {
   });
 
   const userLogin = await User.findOne({ email });
-  console.log(SECRET_KEY)
-
+  console.log(SECRET_KEY);
 
   const payload = {
     id: userLogin._id,
