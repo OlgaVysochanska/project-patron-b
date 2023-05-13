@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const path = require("path");
-const User = require("../../models");
+const { User } = require("../../models");
 const Jimp = require("jimp");
 const { HttpError } = require("../../helpers");
 
