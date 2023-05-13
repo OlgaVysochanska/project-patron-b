@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const path = require("path");
-const User = require("../../models");
+const { User } = require("../../models");
 const Jimp = require("jimp");
 const { HttpError } = require("../../helpers");
 
@@ -14,7 +14,7 @@ const updateAvatar = async (req, res) => {
   await fs.rename(tempUpload, resultUpload);
   Jimp.read(resultUpload)
     .then((image) => {
-      image.resize(250, 250).write(resultUpload);
+      image.resize(300, Jimp.AUTO).write(resultUpload);
     })
     .catch(() => {
       throw HttpError(400, "Use type image: jpeg, png, bmp, tiff, gif");
