@@ -1,3 +1,4 @@
+
 const { ctrlWrapper } = require("../../helpers");
 const current = require("./current");
 const login = require("./login");
@@ -5,6 +6,7 @@ const logout = require("./logout");
 const patchChanges = require("./patchChanges");
 const register = require("./register");
 const updateAvatar = require("./updateAvatar");
+
 
 module.exports = {
   register: ctrlWrapper(register),
