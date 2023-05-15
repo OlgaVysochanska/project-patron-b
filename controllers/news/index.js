@@ -1,3 +1,3 @@
 const getNews = require('./getNews');
 
-module.exports = getNews;
+module.exports = { getNews };
