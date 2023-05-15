@@ -21,15 +21,15 @@ const register = async (req, res) => {
     password: hashPassword,
   });
 
-  const userLogin = await User.findOne({ email });
+  console.log(result)
 
   const payload = {
-    id: userLogin._id,
+    id: result._id,
   };
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "23h" });
 
-  await User.findByIdAndUpdate(userLogin._id, { token });
+  await User.findByIdAndUpdate(result._id, { token });
 
   //    user(idUser:idUser,
   // uriImage:string,
