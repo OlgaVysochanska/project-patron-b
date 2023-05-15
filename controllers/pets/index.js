@@ -1,6 +1,8 @@
-const { addPet, deletePet } = require("./pets");
+const { ctrlWrapper } = require("../helpers");
+const { addPet, deletePet, getAllPets } = require("./pets");
 
 module.exports = {
-  addPet,
-  deletePet,
+  getAllPets: ctrlWrapper(getAllPets),
+  addPet: ctrlWrapper(addPet),
+  deletePet: ctrlWrapper(deletePet),
 };

@@ -1,3 +1,4 @@
+
 const {
   current,
   login,
@@ -6,7 +7,7 @@ const {
   register,
   updateAvatar,
 } = require("./auth");
-const { addPet, deletePet } = require("./pets");
+const { addPet, deletePet, getAllPets } = require("./pets");
 const { getFriends } = require("./friends");
 const { getNews } = require("./news");
 
@@ -17,6 +18,7 @@ module.exports = {
   patchChanges,
   register,
   updateAvatar,
+  getAllPets,
   addPet,
   deletePet,
   getFriends,
