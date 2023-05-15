@@ -1,4 +1,3 @@
-
 const ctrlWrapper = require("../../Helpers/ctrlWrapper");
 const current = require("./current");
 const login = require("./login");

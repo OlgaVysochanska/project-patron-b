@@ -1,6 +1,7 @@
-const { addPet, deletePet } = require("./pets");
+const { addPet, deletePet, getAllPets } = require("./pets");
 
 module.exports = {
+  getAllPets,
   addPet,
   deletePet,
 };

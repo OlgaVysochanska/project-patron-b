@@ -21,8 +21,7 @@ const register = async (req, res) => {
   });
 
   const userLogin = await User.findOne({ email });
-  console.log(SECRET_KEY)
-
+  console.log(SECRET_KEY);
 
   const payload = {
     id: userLogin._id,

@@ -1,12 +1,20 @@
 const express = require("express");
 const petsRouter = express.Router();
 const { validateBody } = require("../../utils");
+const { authenticate } = require("../../middlewares");
 
 const { schemas } = require("../../models/pet");
 const controllers = require("../../controllers");
 
-petsRouter.post("/", validateBody(schemas.addSchema), controllers.addPet);
+petsRouter.get("/", authenticate, controllers.getAllPets);
 
-petsRouter.delete("/", validateBody(schemas.addSchema), controllers.deletePet);
+petsRouter.post(
+  "/",
+  authenticate,
+  validateBody(schemas.addSchema),
+  controllers.addPet
+);
+
+petsRouter.delete("/:id", authenticate, controllers.deletePet);
 
 module.exports = petsRouter;
