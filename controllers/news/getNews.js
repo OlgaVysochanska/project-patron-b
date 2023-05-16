@@ -1,38 +1,65 @@
 const New = require("../../models/news");
 
 const getNews = async (req, res) => {
-  // const result = await New.find().sort({ date: -1 });
-
-  // res.status(200).json(result);
   const { page = 1, limit = 6, ...query } = req.query;
   const skip = (page - 1) * limit;
 
-  const result = await New.find({ ...query }, "-createdAt -updatedAt", {
-    skip,
-    limit,
-  }).sort({ date: -1 });
+  try {
+    const result = await New.find({ ...query }, "-createdAt -updatedAt", {
+      skip,
+      limit,
+    }).sort({ date: -1 });
 
-  res.json(result);
+    const totalItems = await New.countDocuments();
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      totalItems,
+      totalPages,
+      currentPage: page,
+      data: result,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 const getByKeywords = async (req, res) => {
   const { page = 1, limit = 6, ...query } = req.query;
   const skip = (page - 1) * limit;
 
-  const filteredData = await New.find(
-    {
+  try {
+    const filteredData = await New.find(
+      {
+        title: { $regex: query.search, $options: "i" },
+      },
+      "-createdAt -updatedAt",
+      {
+        skip,
+        limit,
+      }
+    )
+      .sort({ date: -1 })
+      .exec();
+
+    const totalItems = await New.countDocuments({
       title: { $regex: query.search, $options: "i" },
-    },
-    "-createdAt -updatedAt",
-    {
-      skip,
-      limit,
-    }
-  )
-    .sort({ date: -1 })
-    .exec();
-  // Поверніть результат у відповідь у форматі JSON
-  res.json(filteredData);
+    });
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      totalItems,
+      totalPages,
+      currentPage: page,
+      data: filteredData,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 module.exports = { getNews, getByKeywords };
