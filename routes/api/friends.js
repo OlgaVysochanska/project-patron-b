@@ -1,6 +1,6 @@
 const express = require("express");
 const ctrlWrapper = require("../../helpers/ctrlWrapper");
-const getFriends = require("../../controllers/friends");
+const { getFriends } = require("../../controllers");
 
 const router = express.Router();
 
