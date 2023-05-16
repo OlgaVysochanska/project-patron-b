@@ -1,5 +1,6 @@
+const { HttpError } = require("../../helpers");
 const { Pet } = require("../../models/pet");
-const HttpError = require("../../helpers/HttpError");
+
 
 const getAllPets = async (req, res) => {
   const { _id: owner } = req.user;
