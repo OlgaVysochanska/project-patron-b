@@ -1,33 +1,35 @@
 const New = require("../../models/news");
 
 const getNews = async (req, res) => {
-  const { page = 1, limit = 6, ...query } = req.query;
-  const skip = (page - 1) * limit;
+  const { page, pageSize } = req.query;
+  const pageNumber = parseInt(page) || 1;
+  const limit = parseInt(pageSize) || 10;
+  const skip = (pageNumber - 1) * limit;
 
   try {
-    const result = await New.find({ ...query }, "-createdAt -updatedAt", {
-      skip,
-      limit,
-    }).sort({ date: -1 });
+    const totalCount = await New.countDocuments();
 
-    const totalItems = await New.countDocuments();
+    const news = await New.find()
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(limit);
 
-    const totalPages = Math.ceil(totalItems / limit);
+    const totalPages = Math.ceil(totalCount / limit);
 
-    res.json({
-      totalItems,
-      totalPages,
-      currentPage: page,
-      data: result,
+    res.status(200).json({
+      totalItems: totalCount,
+      currentPage: pageNumber,
+      totalPages: totalPages,
+      pageSize: limit,
+      news: news,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Помилка сервера" });
   }
 };
 
 const getByKeywords = async (req, res) => {
-  const { page = 1, limit = 6, ...query } = req.query;
+  const { page = 1, limit = 10, ...query } = req.query;
   const skip = (page - 1) * limit;
 
   try {
