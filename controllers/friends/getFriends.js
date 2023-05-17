@@ -1,28 +1,26 @@
 const Sponsor = require("../../models/friends");
 
 const getFriends = async (req, res) => {
-  const { page, pageSize } = req.query;
-  const pageNumber = parseInt(page) || 1;
-  const limit = parseInt(pageSize) || 10;
-
-  const skip = (pageNumber - 1) * limit;
+  const { page = 1, limit = 6, ...query } = req.query;
+  const skip = (page - 1) * limit;
 
   try {
-    const totalCount = await Sponsor.countDocuments();
+    const result = await Sponsor.find({ ...query }, "-createdAt -updatedAt", {
+      skip,
+      limit,
+    }).sort({ date: -1 });
 
-    const sponsors = await Sponsor.find().skip(skip).limit(limit);
-
-    const totalPages = Math.ceil(totalCount / limit);
+    const totalItems = await Sponsor.countDocuments();
+    const totalPages = Math.ceil(totalItems / limit);
 
     res.status(200).json({
-      totalItems: totalCount,
-      currentPage: pageNumber,
-      totalPages: totalPages,
-      pageSize: limit,
-      friends: sponsors,
+      totalItems,
+      totalPages,
+      currentPage: page,
+      data: result,
     });
   } catch (error) {
-    res.status(500).json({ error: "Помилка сервера" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
