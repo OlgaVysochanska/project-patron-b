@@ -1,20 +1,20 @@
 const express = require("express");
-const noticeRouter = express.Router();
+const noticesRouter = express.Router();
 const { validateBody } = require("../../utils");
 const { authenticate } = require("../../middlewares");
 
-const { schemas } = require("../../models/pet");
+const { schemas } = require("../../models/notice");
 const controllers = require("../../controllers");
 
-noticeRouter.get("/", controllers.getAllNorice);
+noticesRouter.get("/", controllers.getAllNotice);
 
-noticeRouter.post(
+noticesRouter.post(
   "/",
   authenticate,
-  validateBody(schemas.addSchema),
-  controllers.addPet
+  // validateBody(schemas.addSchema),
+  controllers.addNotice
 );
 
-noticeRouter.delete("/:id", authenticate, controllers.deleteNotice);
+// noticesRouter.delete("/:id", authenticate, controllers.deleteNotice);
 
-module.exports = noticeRouter;
+module.exports = noticesRouter;

@@ -10,6 +10,8 @@ const {
 const { addPet, deletePet, getAllPets } = require("./pets");
 const { getFriends } = require("./friends");
 const { getNews } = require("./news");
+const { getAllNotice, addNotice } = require("./notices");
+
 
 module.exports = {
   current,
@@ -23,4 +25,6 @@ module.exports = {
   deletePet,
   getFriends,
   getNews,
+  getAllNotice,
+  addNotice,
 };
