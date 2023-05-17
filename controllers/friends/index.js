@@ -1,3 +1,3 @@
 const getFriends = require("./getFriends");
 
-module.exports = getFriends;
+module.exports = { getFriends };

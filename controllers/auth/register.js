@@ -1,7 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const HttpError = require("../../Helpers/HttpError");
-const User = require("../../models/user");
+
+const { User } = require("../../models");
+const { HttpError } = require("../../helpers");
 
 const { SECRET_KEY } = process.env;
 
@@ -20,17 +21,15 @@ const register = async (req, res) => {
     password: hashPassword,
   });
 
-  const userLogin = await User.findOne({ email });
-  console.log(SECRET_KEY)
-
+  console.log(result)
 
   const payload = {
-    id: userLogin._id,
+    id: result._id,
   };
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "23h" });
 
-  await User.findByIdAndUpdate(userLogin._id, { token });
+  await User.findByIdAndUpdate(result._id, { token });
 
   //    user(idUser:idUser,
   // uriImage:string,

@@ -28,4 +28,40 @@ const getNews = async (req, res) => {
   }
 };
 
-module.exports = getNews;
+const getByKeywords = async (req, res) => {
+  const { page = 1, limit = 10, ...query } = req.query;
+  const skip = (page - 1) * limit;
+
+  try {
+    const filteredData = await New.find(
+      {
+        title: { $regex: query.search, $options: "i" },
+      },
+      "-createdAt -updatedAt",
+      {
+        skip,
+        limit,
+      }
+    )
+      .sort({ date: -1 })
+      .exec();
+
+    const totalItems = await New.countDocuments({
+      title: { $regex: query.search, $options: "i" },
+    });
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      totalItems,
+      totalPages,
+      currentPage: page,
+      data: filteredData,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+module.exports = { getNews, getByKeywords };

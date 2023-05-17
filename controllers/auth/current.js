@@ -1,8 +1,16 @@
 const current = async (req, res) => {
-  const { email } = req.user;
+  const { _id, email, name, birthday, phone, city, avatarURL } = req.user;
+  const { token } = req.token;
 
   res.status(200).json({
-      email 
+    _id,
+    email,
+    name,
+    birthday,
+    phone,
+    city,
+    avatarURL,
+    token
   });
 };
 
