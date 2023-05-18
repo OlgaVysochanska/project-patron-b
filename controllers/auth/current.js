@@ -14,17 +14,20 @@ const current = async (req, res) => {
   const { token } = req.token;
 
   res.status(200).json({
-    _id,
-    email,
-    name,
-    birthday,
-    phone,
-    city,
-    avatarURL,
     token,
-    myPets,
-    myAbs,
-    favoriteAbs,
+    user: {
+      _id,
+      email,
+      name,
+      birthday,
+      phone,
+      city,
+      avatarURL,
+      token,
+      myPets,
+      myAbs,
+      favoriteAbs
+    }
   });
 };
 
