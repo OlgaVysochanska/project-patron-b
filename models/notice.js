@@ -51,8 +51,8 @@ const noticeSchema = new Schema(
       type: String,
     },
     favorite: {
-      type: Boolean,
-      default: false,
+      type: Array,
+      default: [],
     },
     category: {
       type: String,
@@ -62,6 +62,10 @@ const noticeSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: true,
+    },
+    title: {
+      type: String,
       required: true,
     },
   },
@@ -82,7 +86,7 @@ const addSchema = Joi.object({
   comments: Joi.string(),
   price: Joi.string(),
   favorite: Joi.boolean(),
-  owner: Joi.string()
+  owner: Joi.string(),
 });
 
 const schemas = {

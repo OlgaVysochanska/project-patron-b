@@ -1,4 +1,3 @@
-
 const {
   current,
   login,
@@ -10,8 +9,18 @@ const {
 const { addPet, deletePet, getAllPets } = require("./pets");
 const { getFriends } = require("./friends");
 const { getNews } = require("./news");
-const { getAllNotice, addNotice } = require("./notices");
-
+const {
+  getAllNotice,
+  addNotice,
+  deleteNotice,
+  getTitle,
+  getNoticeOnlyAddUser,
+  getCategory,
+  getOne,
+  updateStatusFavorite,
+  getFavoriteUsers,
+  deleteFavoriteUsers,
+} = require("./notices");
 
 module.exports = {
   current,
@@ -27,4 +36,12 @@ module.exports = {
   getNews,
   getAllNotice,
   addNotice,
+  deleteNotice,
+  getTitle,
+  getNoticeOnlyAddUser,
+  getCategory,
+  getOne,
+  updateStatusFavorite,
+  getFavoriteUsers,
+  deleteFavoriteUsers,
 };

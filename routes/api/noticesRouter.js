@@ -15,6 +15,22 @@ noticesRouter.post(
   controllers.addNotice
 );
 
-// noticesRouter.delete("/:id", authenticate, controllers.deleteNotice);
+noticesRouter.delete("/:id", authenticate, controllers.deleteNotice);
+
+noticesRouter.get("/title", controllers.getTitle);
+
+noticesRouter.get("/selected", authenticate, controllers.getNoticeOnlyAddUser);
+
+noticesRouter.get("/category", controllers.getCategory);
+
+noticesRouter.get("/oneadvertisement", controllers.getOne);
+
+noticesRouter.patch(
+  "/favorite/:id",
+  authenticate,
+  controllers.updateStatusFavorite
+);
+
+noticesRouter.get("/favorite", authenticate, controllers.getFavoriteUsers);
 
 module.exports = noticesRouter;
