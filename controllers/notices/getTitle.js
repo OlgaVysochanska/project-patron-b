@@ -1,4 +1,5 @@
 // створити ендпоінт для пошуку оголошеннь по заголовку
+const { HttpError } = require("../../helpers");
 const { Notice } = require("../../models/notice");
 
 const getTitle = async (req, res) => {

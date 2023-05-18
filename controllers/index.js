@@ -19,7 +19,9 @@ const {
   getOne,
   updateStatusFavorite,
   getFavoriteUsers,
-  deleteFavoriteUsers,
+  deleteFavoriteNotices,
+  addNoticeCategory,
+  addCategory,
 } = require("./notices");
 
 module.exports = {
@@ -43,5 +45,7 @@ module.exports = {
   getOne,
   updateStatusFavorite,
   getFavoriteUsers,
-  deleteFavoriteUsers,
+  deleteFavoriteNotices,
+  addNoticeCategory,
+  addCategory,
 };
