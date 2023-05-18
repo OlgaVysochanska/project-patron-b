@@ -1,7 +1,7 @@
 const Sponsor = require("../../models/friends");
 
 const getFriends = async (req, res) => {
-  const { page = 1, limit = 6, ...query } = req.query;
+  const { page = 1, limit = 9, ...query } = req.query;
   const skip = (page - 1) * limit;
 
   try {
