@@ -1,65 +1,112 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-        "version": "2.0.2",
-        "title": "Swagger for patron",
-        "description": "Showing off swagger-ui-express"
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.2",
+    "title": "Swagger for patron",
+    "description": "Showing off swagger-ui-express"
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{"url": "https://patron-back.onrender.com"}],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth endpoints"
     },
-    "consumes": ["application/json"],
-    "produces":  ["application/json"],
-    "servers": [{"url": "https://patron-back.onrender.com"}],
-    "tags": [
-        {
-            "name": "Auth",
-            "description": "Auth endpoints"
-        },
-        {
-             "name": "Notices",
-            "description": "Notices endpoints"
-        },
-        {
-             "name": "News",
-            "description": "News endpoints"
-        },
-        {
-             "name": "Friends",
-            "description": "Friends endpoints"
-        }
-    ],
-    "paths": {
-        "auth/register": {
-            "post": {
-                "tags": ["Auth"],
-                "summary": "User registration",
-                "parameters": [],
-                "security": [{"Bearer":[]}],
-                "requestBody": {
-                    "description": "Registration's object",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#components/schemas/RegistrationRequest"
-                            }
-                        }
-                    }   
-                },
-                "responses": {
-                    "201": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#components/schemas/RegistrationResponse"
-                                }
-                            }
-                        }
-                    },
-                    "409": {}
-                }
+    {
+      "name": "Notices",
+      "description": "Notices endpoints"
+    },
+    {
+      "name": "News",
+      "description": "News endpoints"
+    },
+    {
+      "name": "Friends",
+      "description": "Friends endpoints"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "security": [{"Bearer": []}],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
             }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "409": {}
         }
+      }
     },
+    "/api/friends": {
+      "get": {
+        "tags": ["Friends"],
+        "summary": "Obtaining contact information about services that provide services",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getFriendsRequest"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/news": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Receiving news",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getNewsRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
     "components": {
         "schemas": {
             "RegistrationRequest": {
