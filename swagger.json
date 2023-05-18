@@ -45,16 +45,17 @@
                     }   
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    
+                                    "$ref": "#components/schemas/RegistrationResponse"
                                 }
                             }
                         }
-                    }
+                    },
+                    "409": {}
                 }
             }
         }
@@ -74,6 +75,21 @@
                         "type": "string",
                         "description": "User's password",
                         "example": "min6symbols"
+                    }
+                }
+            },
+            "RegistratrationResponse": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "User's token",
+                        "example": "7768768776r657"
                     }
                 }
             }
