@@ -1,0 +1,29 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "2.0.2",
+        "title": "Swagger for patron",
+        "description": "Showing off swagger-ui-express"
+    },
+    "consumes": ["application/json"],
+    "produces":  ["application/json"],
+    "servers": [{"url": "https://patron-back.onrender.com"}],
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth endpoints"
+        },
+        {
+             "name": "Notices",
+            "description": "Notices endpoints"
+        },
+        {
+             "name": "News",
+            "description": "News endpoints"
+        },
+        {
+             "name": "Friends",
+            "description": "Friends endpoints"
+        }
+    ]
+}
