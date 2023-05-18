@@ -1,4 +1,5 @@
 // створити ендпоінт для отримання одного оголошення
+const { HttpError } = require("../../helpers");
 const { Notice } = require("../../models/notice");
 
 const getOne = async (req, res) => {

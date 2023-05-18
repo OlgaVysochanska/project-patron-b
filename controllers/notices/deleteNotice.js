@@ -1,3 +1,5 @@
+// створити ендпоінт для видалення оголошення авторизованого користувача створеного цим же користувачем
+const { HttpError } = require("../../helpers");
 const { Notice } = require("../../models/notice");
 
 const deleteNotice = async (req, res) => {

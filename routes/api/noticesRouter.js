@@ -23,6 +23,8 @@ noticesRouter.get("/selected", authenticate, controllers.getNoticeOnlyAddUser);
 
 noticesRouter.get("/category", controllers.getCategory);
 
+noticesRouter.post("/category", authenticate, controllers.addCategory);
+
 noticesRouter.get("/oneadvertisement", controllers.getOne);
 
 noticesRouter.patch(
@@ -32,5 +34,11 @@ noticesRouter.patch(
 );
 
 noticesRouter.get("/favorite", authenticate, controllers.getFavoriteUsers);
+
+noticesRouter.delete(
+  "/favorite/:id",
+  authenticate,
+  controllers.deleteFavoriteNotices
+);
 
 module.exports = noticesRouter;

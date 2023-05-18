@@ -1,3 +1,4 @@
+// створити ендпоінт для отримання оголошень авторизованого кристувача створених цим же користувачем
 const { Notice } = require("../../models/notice");
 
 const addNotice = async (req, res) => {

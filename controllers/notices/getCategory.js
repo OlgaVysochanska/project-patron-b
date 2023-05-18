@@ -1,4 +1,5 @@
 // створити ендпоінт для отримання оголошень по категоріям
+const { HttpError } = require("../../helpers");
 const { Notice } = require("../../models/notice");
 
 const getCategory = async (req, res) => {

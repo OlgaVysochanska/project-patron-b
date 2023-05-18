@@ -50,10 +50,6 @@ const noticeSchema = new Schema(
     price: {
       type: String,
     },
-    favorite: {
-      type: Array,
-      default: [],
-    },
     category: {
       type: String,
       enum: petsCategory,

@@ -3,12 +3,14 @@ const addNotice = require("./addNotice");
 const getAllNotice = require("./getAllNotice");
 const deleteNotice = require("./deleteNotice");
 const getTitle = require("./getTitle");
-const getNoticeOnlyAddUser = require("./getNoticeOnlyUser");
+const getNoticeOnlyAddUser = require("./addNoticeCategory");
 const getCategory = require("./getCategory");
 const getOne = require("./getOne");
 const updateStatusFavorite = require("./patchFavorite");
 const getFavoriteUsers = require("./getFavoriteUsers");
-const deleteFavoriteUsers = require("./deleteFavorite");
+const deleteFavoriteNotices = require("./deleteFavorite");
+const addNoticeCategory = require("./addNoticeCategory");
+const addCategory = require("./addCategory");
 
 module.exports = {
   getAllNotice: ctrlWrapper(getAllNotice),
@@ -20,5 +22,7 @@ module.exports = {
   getOne: ctrlWrapper(getOne),
   updateStatusFavorite: ctrlWrapper(updateStatusFavorite),
   getFavoriteUsers: ctrlWrapper(getFavoriteUsers),
-  deleteFavoriteUsers: ctrlWrapper(deleteFavoriteUsers),
+  deleteFavoriteNotices: ctrlWrapper(deleteFavoriteNotices),
+  addNoticeCategory: ctrlWrapper(addNoticeCategory),
+  addCategory: ctrlWrapper(addCategory),
 };
