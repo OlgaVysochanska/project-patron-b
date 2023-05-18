@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 const { User } = require("../../models");
 const { HttpError } = require("../../helpers");
 
@@ -34,6 +33,14 @@ const login = async (req, res) => {
     user: {
       email: user.email,
       name: user.name,
+      _id: user._id,
+      birthday: user.birthday,
+      phone: user.phone,
+      city: user.city,
+      avatarURL: user.avatarURL,
+      myPets: user.myPets,
+      myAbs: user.myAbs,
+      favoriteAbs: user.favoriteAbs,
     },
   });
 };
