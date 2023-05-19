@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const handleSchemaErrors = require("../middlewares/handleSchemaErrors");
 
-const petsCategory = ["sell", "my pet", "lost-found", "for-free"];
+const petsCategory = ["sell", "lost-found", "for-free"];
 
 const validData = /^\d{2}.\d{2}.\d{4}$/;
 
