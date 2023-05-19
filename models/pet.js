@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const handleSchemaErrors = require("../middlewares/handleSchemaErrors");
 
-const petsCategory = ["sell", "my pet", "lost-found", "for-free"];
+const petsCategory = ["my pet"];
 
 const validData = /^\d{2}.\d{2}.\d{4}$/;
 
@@ -17,7 +17,7 @@ const petSchema = new Schema(
     date: {
       type: String,
       match: validData,
-      required: [true, "Set date format how 01-01-2000"],
+      required: [true, "Set date format how 01.01.2000"],
     },
     category: {
       type: String,

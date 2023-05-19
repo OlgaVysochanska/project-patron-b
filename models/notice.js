@@ -17,7 +17,7 @@ const noticeSchema = new Schema(
     date: {
       type: String,
       match: validData,
-      required: [true, "Set date format how 01-01-2000"],
+      required: [true, "Set date format how 01.01.2000"],
     },
     breed: {
       type: String,
