@@ -23,7 +23,7 @@ const getAllNotice = async (req, res) => {
         findSearch.push(dat._id);
       } 
     }
-  const datafind = await Notice.find({_id:findSearch}, null, { skip, limit });
+    const datafind = await Notice.find({ _id: findSearch }, null, { skip, limit });
     res.status(200).json(datafind);
   } else {
     res.status(200).json(data);
