@@ -111,7 +111,7 @@
       }
     },
     "/api/pets": {
-      "add": {
+      "post": {
         "tags": ["Pets"],
         "summary": "endpoint for adding a user's pet card",
         "security": [{ "Bearer": [] }],
@@ -144,6 +144,40 @@
             "description": "Server error"
           }
         }
+      },
+      "delete": {
+        "tags": ["Pets"],
+        "summary": "endpoint for delete a user's pet card",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "pets object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deletePetsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deletePetsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
       }
     }
   },
@@ -165,7 +199,7 @@
           }
         }
       },
-      "RegistratrationResponse": {
+      "RegistrationResponse": {
         "type": "object",
         "properties": {
           "email": {
