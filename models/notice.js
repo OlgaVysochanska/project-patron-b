@@ -81,7 +81,6 @@ const addSchema = Joi.object({
   sex: Joi.string().valid("male", "female"),
   comments: Joi.string(),
   price: Joi.string(),
-  favorite: Joi.boolean(),
   owner: Joi.string(),
 });
 
