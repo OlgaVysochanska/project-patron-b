@@ -7,7 +7,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{"url": "https://patron-back.onrender.com"}],
+  "servers": [{ "url": "https://patron-back.onrender.com" }],
   "tags": [
     {
       "name": "Auth",
@@ -24,6 +24,10 @@
     {
       "name": "Friends",
       "description": "Friends endpoints"
+    },
+    {
+      "name": "Pets",
+      "description": "Pets endpoints"
     }
   ],
   "paths": {
@@ -32,7 +36,7 @@
         "tags": ["Auth"],
         "summary": "User registration",
         "parameters": [],
-        "security": [{"Bearer": []}],
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -63,7 +67,7 @@
       "get": {
         "tags": ["Friends"],
         "summary": "Obtaining contact information about services that provide services",
-        "security": [{"Bearer": []}],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -85,7 +89,7 @@
       "get": {
         "tags": ["News"],
         "summary": "Receiving news",
-        "security": [{"Bearer": []}],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -105,48 +109,84 @@
           }
         }
       }
+    },
+    "/api/pets": {
+      "add": {
+        "tags": ["Pets"],
+        "summary": "endpoint for adding a user's pet card",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "pets object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addPetsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getPetsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   },
-    "components": {
-        "schemas": {
-            "RegistrationRequest": {
-                "type": "object",
-                "required": ["email", "password"],
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "description": "User's email",
-                        "format": "email"
-                    },
-                    "password": {
-                        "type": "string",
-                        "description": "User's password",
-                        "example": "min6symbols"
-                    }
-                }
-            },
-            "RegistratrationResponse": {
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "description": "User's email",
-                        "format": "email"
-                    },
-                    "token": {
-                        "type": "string",
-                        "description": "User's token",
-                        "example": "7768768776r657"
-                    }
-                }
-            }
-        },
-        "securitySchemas": {
-            "Bearer": {
-                "type": "http",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
-            }
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "min6symbols"
+          }
         }
+      },
+      "RegistratrationResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "7768768776r657"
+          }
+        }
+      }
+    },
+    "securitySchemas": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
+  }
 }
