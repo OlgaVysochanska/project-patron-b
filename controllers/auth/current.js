@@ -11,7 +11,7 @@ const current = async (req, res) => {
     myAbs,
     favoriteAbs,
   } = req.user;
-  const { token } = req.token;
+  const token = req.token;
 
   res.status(200).json({
     token,
@@ -23,7 +23,6 @@ const current = async (req, res) => {
       phone,
       city,
       avatarURL,
-      token,
       myPets,
       myAbs,
       favoriteAbs
