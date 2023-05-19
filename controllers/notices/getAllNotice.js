@@ -4,7 +4,9 @@ const { Notice } = require("../../models/notice");
 const getAllNotice = async (req, res) => {
   const { page = 1, limit = 20, search, category } = req.query;
   const skip = (page - 1) * limit;
-  const data = category ? await Notice.find({ category }, null, { skip, limit }) : await Notice.find({ skip, limit });
+  const data = category
+    ? await Notice.find({ category }, null, { skip, limit })
+    : await Notice.find({ skip, limit });
 
   if (search) {
     const searchLow = search.toLowerCase();
@@ -18,17 +20,20 @@ const getAllNotice = async (req, res) => {
         datName.includes(searchLow) ||
         datLocat.includes(searchLow) ||
         datSex.includes(searchLow) ||
-        datBreed.includes(searchLow) 
+        datBreed.includes(searchLow)
       ) {
         findSearch.push(dat._id);
-      } 
+      }
     }
-    const datafind = await Notice.find({ _id: findSearch }, null, { skip, limit });
+    const datafind = await Notice.find({ _id: findSearch }, null, {
+      skip,
+      limit,
+    });
     res.status(200).json(datafind);
+    return;
   } else {
     res.status(200).json(data);
   }
-
 };
 
 module.exports = getAllNotice;
