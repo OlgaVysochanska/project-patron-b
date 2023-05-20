@@ -8,6 +8,8 @@ const controllers = require("../../controllers");
 
 noticesRouter.get("/", controllers.getAllNotice);
 
+noticesRouter.get("/current", authenticate, controllers.getUsersNotice);
+
 noticesRouter.post(
   "/",
   authenticate,

@@ -72,18 +72,17 @@ const noticeSchema = new Schema(
 noticeSchema.post("save", handleSchemaErrors);
 
 const addSchema = Joi.object({
-  name: Joi.string().required(),
+  name: Joi.string().required().min(2).max(16),
   date: Joi.string().pattern(validData).required(),
   category: Joi.string()
     .valid(...petsCategory)
     .required(),
-  breed: Joi.string(),
+  breed: Joi.string().required().min(2).max(16),
+  petURL: Joi.string().required().max(300000),
+  sex: Joi.string().required().valid("male", "female"),
   location: Joi.string().required().pattern(validSity),
-  petURL: Joi.string(),
-  sex: Joi.string().valid("male", "female"),
-  comments: Joi.string(),
-  price: Joi.string(),
-  owner: Joi.string(),
+  price: Joi.number().min(1),
+  comments: Joi.string().required().alphanum().min(8).max(120),
 });
 
 const schemas = {
