@@ -1,17 +1,17 @@
 const { User } = require("../../models");
 
 const patchChanges = async (req, res) => {
-  const { _id, favoriteAbs: oldFavorite } = req.user;
+  const { _id, favoriteNotice: oldFavorite } = req.user;
 
-  const { favoriteAbs } = req.body;
-  if (favoriteAbs) {
-    if (oldFavorite.includes(favoriteAbs)) {
-      oldFavorite.splice(oldFavorite.indexOf(favoriteAbs), 1)
+  const { favoriteNotice } = req.body;
+  if (favoriteNotice) {
+    if (oldFavorite.includes(favoriteNotice)) {
+      oldFavorite.splice(oldFavorite.indexOf(favoriteNotice), 1)
     } else {
-      oldFavorite.splice(1, 0, favoriteAbs);
+      oldFavorite.splice(1, 0, favoriteNotice);
     }    
-    await User.findByIdAndUpdate(_id, { favoriteAbs: oldFavorite });
-    res.json(oldFavorite);
+    await User.findByIdAndUpdate(_id, { favoriteNotice: oldFavorite });
+    res.json(favoriteNotice);
   } else {
     await User.findByIdAndUpdate(_id, req.body);
 
