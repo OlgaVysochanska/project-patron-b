@@ -70,6 +70,7 @@ const noticeSchema = new Schema(
 noticeSchema.post("save", handleSchemaErrors);
 
 const addSchema = Joi.object({
+  title: Joi.string().required(),
   name: Joi.string().required(),
   date: Joi.string().pattern(validData).required(),
   category: Joi.string()

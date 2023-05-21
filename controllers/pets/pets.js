@@ -1,7 +1,6 @@
 const { HttpError } = require("../../helpers");
 const { Pet } = require("../../models/pet");
 
-
 const getAllPets = async (req, res) => {
   const { _id: owner } = req.user;
   const { page = 1, limit = 20 } = req.query;
@@ -16,6 +15,9 @@ const getAllPets = async (req, res) => {
 const addPet = async (req, res) => {
   const { _id: owner } = req.user;
   const data = await Pet.create({ ...req.body, owner });
+  if (!data) {
+    throw HttpError(400);
+  }
   res.status(201).json(data);
 };
 

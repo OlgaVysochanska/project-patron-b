@@ -7,7 +7,7 @@ const updateStatusFavorite = async (req, res) => {
   const { id } = req.params;
   const data = await User.find(_id, req.body, { favoriteNotice });
   if (!data) {
-    throw HttpError(404, "Not found");
+    throw HttpError(400, "User not found");
   }
   const result = favoriteNotice.findIndex((item) => item === id);
   if (result !== -1) {
