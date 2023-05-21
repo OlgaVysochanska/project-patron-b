@@ -29,14 +29,6 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
-    myPets: {
-      type: Array,
-      default: [],
-    },
-    myAbs: {
-      type: Array,
-      default: [],
-    },
     favoriteAbs: {
       type: Array,
       default: [],
