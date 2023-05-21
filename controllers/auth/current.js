@@ -9,8 +9,6 @@ const current = async (req, res) => {
     phone,
     city,
     avatarURL,
-    myPets,
-    myAbs,
     favoriteAbs,
   } = req.user;
   const token = req.token;
@@ -27,8 +25,6 @@ const current = async (req, res) => {
       phone,
       city,
       avatarURL,
-      myPets,
-      myAbs,
       favoriteAbs,
     },
     pets,
