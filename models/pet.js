@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const handleSchemaErrors = require("../middlewares/handleSchemaErrors");
 
-const petsCategory = ["sell", "my pet", "lost-found", "for-free"];
+const petsCategory = ["your pet"];
 
 const validData = /^\d{2}.\d{2}.\d{4}$/;
 
@@ -17,7 +17,7 @@ const petSchema = new Schema(
     date: {
       type: String,
       match: validData,
-      required: [true, "Set date format how 01-01-2000"],
+      required: [true, "Set date format how 01.01.2000"],
     },
     category: {
       type: String,
@@ -28,17 +28,7 @@ const petSchema = new Schema(
       type: String,
       required: [true, "Set breed"],
     },
-    avatarUrl: {
-      type: String,
-    },
-
-    sex: {
-      type: String,
-    },
-    location: {
-      type: String,
-    },
-    price: {
+    petURL: {
       type: String,
     },
     comments: {
@@ -61,22 +51,9 @@ const addSchema = Joi.object({
     .valid(...petsCategory)
     .required(),
   breed: Joi.string().required().min(2).max(16),
-  avatarUrl: Joi.string().required().max(300000),
-  sex: Joi.string().required().valid("male", "female"),
-  location: Joi.string().required().pattern(validSity),
-  price: Joi.number().min(1),
-  comments: Joi.string().required().alphanum().min(8).max(120),
+  petURL: Joi.string().required().max(300000),
+  comments: Joi.string().required().min(8).max(120),
 });
-
-// category	обовʼязково обране 1 з 3 категорій (my pet, sell, lost-found, for-free)
-// name	обовʼязкове, будь-які літери, мінімум 2 символи, максимум 16
-// date	обовʼязкове, дата в форматі 22.10.2022
-// breed	обовʼязкове, будь-які літери, мінімум 2 символи, максимум 16
-// file	обовʼязковий, обʼємом до 3Мб
-// sex	обовʼязкове для sell, lost-found, for-free, обирається 1 тип з 2х (male, female)
-// location	обовʼязкове для sell, lost-found, for-free. Строка в форматі Місто. Наприклад: Brovary, Kyiv, Akhtyrka, Sumy
-// price	число більш 0, обовʼязкове для sell
-// comments	опціональне, будь-які літери та символи. мінімум 8 символи, максимум 120
 
 const schemas = {
   addSchema,

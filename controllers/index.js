@@ -22,6 +22,7 @@ const {
   deleteFavoriteNotices,
   addNoticeCategory,
   addCategory,
+  getUsersNotice,
 } = require("./notices");
 
 module.exports = {
@@ -48,4 +49,5 @@ module.exports = {
   deleteFavoriteNotices,
   addNoticeCategory,
   addCategory,
+  getUsersNotice,
 };

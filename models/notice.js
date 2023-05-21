@@ -2,9 +2,11 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const handleSchemaErrors = require("../middlewares/handleSchemaErrors");
 
-const petsCategory = ["sell", "lost", "in good hands"];
+const petsCategory = ["sell", "lost-found", "for-free"];
 
-const validData = /^\d{2}-\d{2}-\d{4}$/;
+const validData = /^\d{2}.\d{2}.\d{4}$/;
+
+const validSity = /^[a-zA-Z]+$/;
 
 const noticeSchema = new Schema(
   {
@@ -15,7 +17,7 @@ const noticeSchema = new Schema(
     date: {
       type: String,
       match: validData,
-      required: [true, "Set date format how 01-01-2000"],
+      required: [true, "Set date format how 01.01.2000"],
     },
     breed: {
       type: String,
@@ -71,18 +73,17 @@ noticeSchema.post("save", handleSchemaErrors);
 
 const addSchema = Joi.object({
   title: Joi.string().required(),
-  name: Joi.string().required(),
+  name: Joi.string().required().min(2).max(16),
   date: Joi.string().pattern(validData).required(),
   category: Joi.string()
     .valid(...petsCategory)
     .required(),
-  breed: Joi.string(),
-  location: Joi.string(),
-  petURL: Joi.string(),
-  sex: Joi.string().valid("male", "female"),
-  comments: Joi.string(),
-  price: Joi.string(),
-  owner: Joi.string(),
+  breed: Joi.string().required().min(2).max(16),
+  petURL: Joi.string().required().max(300000),
+  sex: Joi.string().required().valid("male", "female"),
+  location: Joi.string().required().pattern(validSity),
+  price: Joi.number().min(1),
+  comments: Joi.string().required().alphanum().min(8).max(120),
 });
 
 const schemas = {
