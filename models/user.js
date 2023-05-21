@@ -29,7 +29,11 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
-    favoriteAbs: {
+    myAbs: {
+      type: Array,
+      default: [],
+    },
+    myPets: {
       type: Array,
       default: [],
     },
