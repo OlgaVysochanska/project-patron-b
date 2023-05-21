@@ -1,3 +1,5 @@
+const { Pet } = require("../../models/pet");
+
 const current = async (req, res) => {
   const {
     _id,
@@ -13,6 +15,8 @@ const current = async (req, res) => {
   } = req.user;
   const token = req.token;
 
+  const pets = await Pet.find({ owner: _id });
+
   res.status(200).json({
     token,
     user: {
@@ -25,8 +29,9 @@ const current = async (req, res) => {
       avatarURL,
       myPets,
       myAbs,
-      favoriteAbs
-    }
+      favoriteAbs,
+    },
+    pets,
   });
 };
 

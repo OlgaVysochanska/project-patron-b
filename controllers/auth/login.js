@@ -2,7 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models");
+
 const { HttpError } = require("../../helpers");
+const { Pet } = require("../../models/pet");
 
 const { SECRET_KEY } = process.env;
 
@@ -27,6 +29,7 @@ const login = async (req, res) => {
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
   await User.findByIdAndUpdate(user._id, { token });
+  const pets = await Pet.find({ owner: user._id });
 
   res.status(201).json({
     token,
@@ -42,6 +45,7 @@ const login = async (req, res) => {
       myAbs: user.myAbs,
       favoriteAbs: user.favoriteAbs,
     },
+    pets,
   });
 };
 
