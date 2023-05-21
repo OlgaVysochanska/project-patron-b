@@ -9,7 +9,7 @@ const deleteNotice = async (req, res) => {
     throw HttpError(404, "Not found");
   }
   res.status(200).json({
-    message: `${data.name} deleted`,
+    message: `${data.id} deleted`,
   });
 };
 

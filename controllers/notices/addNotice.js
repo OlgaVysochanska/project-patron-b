@@ -1,5 +1,6 @@
 // створити ендпоінт для отримання оголошень авторизованого кристувача створених цим же користувачем
 const { Notice } = require("../../models/notice");
+const { HttpError } = require("../../helpers");
 
 const addNotice = async (req, res) => {
   const { _id: owner } = req.user;
@@ -7,6 +8,9 @@ const addNotice = async (req, res) => {
     ...req.body,
     owner,
   });
+  if (!data) {
+    throw HttpError(400);
+  }
   res.status(201).json(data);
 };
 
