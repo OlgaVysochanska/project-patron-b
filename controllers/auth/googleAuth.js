@@ -15,7 +15,7 @@ const googleAuth = async (req, res) => {
     expiresIn: "23h",
   });
 
-  await User.findByIdAndUpdate(result._id, { token });
+  await User.findByIdAndUpdate(id, { token });
 
   res.redirect(`http://localhost:3000?token=${token}`);
 };
