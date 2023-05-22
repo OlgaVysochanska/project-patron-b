@@ -574,13 +574,10 @@
             "type": "string"
           },
           "user": {
-            "$ref": "#/components/schemas/User"
+            "type": "object"
           },
           "pets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Pet"
-            }
+            "type": "object"
           }
         }
       },
