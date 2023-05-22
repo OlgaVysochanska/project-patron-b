@@ -7,7 +7,11 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "https://patron-back.onrender.com" }],
+  "servers": [
+    {
+      "url": "https://patron-back.onrender.com"
+    }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -36,7 +40,11 @@
         "tags": ["Auth"],
         "summary": "User registration",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -100,21 +108,27 @@
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "No Content"
           }
         }
       }
-    }
-  },
-
+    },
     "/api/friends": {
       "get": {
         "tags": ["Friends"],
         "summary": "Obtaining contact information about services that provide services",
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -135,682 +149,157 @@
     "/api/news": {
       "get": {
         "tags": ["News"],
-        "summary": "Receiving news",
-        "security": [{ "Bearer": [] }],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getNewsRequest"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-    "/api/pets": {
-      "post": {
-        "tags": ["Pets"],
-        "summary": "Endpoint for adding a user's pet card",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "pets object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/addPetsRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/addPetsResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Pets"],
-        "summary": "Endpoint for delete a user's pet card",
-        "parameters": [{ "in": "path", "name": "petsId" }],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {},
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/deletePetsResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-    "/api/notices": {
-      "post": {
-        "tags": ["Notices"],
-        "summary": "Endpoint for adding a user's notice",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "notice object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/addNoticeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/addNoticeResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Notices"],
-        "summary": "Endpoint for delete a user's notice",
-        "parameters": [{ "in": "path", "name": "noticeId" }],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {},
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/deleteNoticeResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-    "/api/notices/oneadvertisement": {
-      "get": {
-        "tags": ["Notices"],
-        "summary": "Endpoint for get one notice",
-        "parameters": [],
-        "requestBody": {},
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getOneNoticeResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-    "/api/notices/title": {
-      "get": {
-        "tags": ["Notices"],
-        "summary": "Endpoint for searching ads by title",
-        "parameters": [{ "in": "query", "name": "title" }],
-
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getTitleNoticeResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-    "/api/notices/favorite": {
-      "patch": {
-        "tags": ["Notices"],
-        "summary": "Endpoint for adding an ad to favorites",
-        "parameters": [
-          { "in": "path", "name": "noticeId" },
-          { "in": "user", "name": "userId" }
-        ],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {},
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/patchFavoriteNoticeResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request"
-          },
-          "404": {
-            "description": "This notise in favorite"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Notices"],
-        "summary": "Endpoint for deleting the ad of the authorized user added by the same to the favorites",
-        "parameters": [
-          { "in": "path", "name": "noticeId" },
-          { "in": "user", "name": "userId" }
-        ],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {},
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/deleteFavoriteNoticeResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      },
-      "get": {
-        "tags": ["Notices"],
-        "summary": "Endpoint to receive ads of the authorized user added to the favorites by the same user",
-        "parameters": [{ "in": "user", "name": "userId" }],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {},
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getFavoriteNoticeResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "RegistrationRequest": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "min6symbols"
-          }
-        }
-      },
-      "RegistrationResponse": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "min6symbols"
-          }
-        }
-      },
-      "addPetsRequest": {
-        "type": "object",
-        "required": [
-          "name",
-          "date",
-          "category",
-          "breed",
-          "avatarUrl",
-          "sex",
-          "location",
-          "comments"
-        ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "format": "name"
-          },
-          "date": {
-            "type": "string",
-            "description": "Pet's date",
-            "example": "01.01.2000"
-          },
-          "category": {
-            "type": "string",
-            "description": "Pet's category",
-            "example": "sell, my pet, lost-found, for-free"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "labrador"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "Pet's avatar"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male, female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Pet's location",
-            "example": "Kyiv"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Pet's comments",
-            "example": "This is a good dog"
-          }
-        }
-      },
-      "addPetsResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "format": "name"
-          },
-          "date": {
-            "type": "string",
-            "description": "Pet's date",
-            "example": "01.01.2000"
-          },
-          "category": {
-            "type": "string",
-            "description": "Pet's category",
-            "example": "sell, my pet, lost-found, for-free"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "labrador"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "Pet's avatar"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male, female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Pet's location",
-            "example": "Kyiv"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Pet's comments",
-            "example": "This is a good dog"
-          }
-        }
-      },
-      "deletePetsResponse": {
-        "type": "string",
-        "properties": {
-          "petsId": {
-            "type": "string",
-            "description": "Pet's name"
-          }
-        }
-      },
-      "addNoticeRequest": {
-        "type": "object",
-        "required": [
-          "title",
-          "name",
-          "date",
-          "category",
-          "breed",
-          "location",
-          "petURL",
-          "sex",
-          "comments",
-          "price"
-        ],
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "Pet's title",
-            "format": "name"
-          },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "format": "name"
-          },
-          "date": {
-            "type": "string",
-            "description": "Pet's date",
-            "example": "01.01.2000"
-          },
-          "category": {
-            "type": "string",
-            "description": "Pet's category",
-            "example": "sell, my pet, lost-found, for-free"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "labrador"
-          },
-          "petURL": {
-            "type": "string",
-            "description": "Pet's avatar"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male, female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Pet's location",
-            "example": "Kyiv"
-          },
-          "price": {
-            "type": "string",
-            "description": "Pet's price",
-            "example": "100"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Pet's comments",
-            "example": "This is a good dog"
-          }
-        }
-      },
-      "addNoticeResponse": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "Pet's title",
-            "format": "name"
-          },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "format": "name"
-          },
-          "date": {
-            "type": "string",
-            "description": "Pet's date",
-            "example": "01.01.2000"
-          },
-          "category": {
-            "type": "string",
-            "description": "Pet's category",
-            "example": "sell, my pet, lost-found, for-free"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "labrador"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "Pet's avatar"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male, female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Pet's location",
-            "example": "Kyiv"
-          },
-          "price": {
-            "type": "string",
-            "description": "Pet's price",
-            "example": "100"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Pet's comments",
-            "example": "This is a good dog"
-          }
-        }
-      },
-      "deleteNoticeResponse": {
-        "type": "string",
-        "properties": {
-          "petsId": {
-            "type": "string",
-            "description": "notive id"
-          }
-        }
-      },
-      "getOneNoticeResponse": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "Pet's title",
-            "format": "name"
-          },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "format": "name"
-          },
-          "date": {
-            "type": "string",
-            "description": "Pet's date",
-            "example": "01.01.2000"
-          },
-          "category": {
-            "type": "string",
-            "description": "Pet's category",
-            "example": "sell, my pet, lost-found, for-free"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "labrador"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "Pet's avatar"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male, female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Pet's location",
-            "example": "Kyiv"
-          },
-          "price": {
-            "type": "string",
-            "description": "Pet's price",
-            "example": "100"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Pet's comments",
-            "example": "This is a good dog"
-          }
-        }
-      },
-      "getTitleNoticeResponse": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "Pet's title",
-            "format": "name"
-          },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "format": "name"
-          },
-          "date": {
-            "type": "string",
-            "description": "Pet's date",
-            "example": "01.01.2000"
-          },
-          "category": {
-            "type": "string",
-            "description": "Pet's category",
-            "example": "sell, my pet, lost-found, for-free"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "labrador"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "Pet's avatar"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male, female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Pet's location",
-            "example": "Kyiv"
-          },
-          "price": {
-            "type": "string",
-            "description": "Pet's price",
-            "example": "100"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Pet's comments",
-            "example": "This is a good dog"
-          }
-        }
-      },
-      "patchFavoriteNoticeResponse": {
-        "type": "array",
-        "properties": ["noticeId"]
-      },
-      "deleteFavoriteNoticeResponse": {
-        "type": "array",
-        "properties": ["noticeId"]
-      },
-      "getFavoriteNoticeResponse": {
-        "type": "array",
-        "properties": ["noticeId"]
-      }
-    },
-    "securitySchemas": {
-      "Bearer": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    }
-  }
+"summary": "Get news articles",
+"security": [
+{
+"Bearer": []
+}
+],
+"parameters": [
+{
+"name": "category",
+"in": "query",
+"description": "Filter news articles by category",
+"required": false,
+"schema": {
+"type": "string"
+}
+}
+],
+"responses": {
+"200": {
+"description": "Successful operation",
+"content": {
+"application/json": {
+"schema": {
+"$ref": "#/components/schemas/NewsResponse"
+}
+}
+}
+},
+"500": {
+"description": "Server error"
+}
+}
+}
+},
+"/api/pets": {
+"get": {
+"tags": ["Pets"],
+"summary": "Get pet information",
+"security": [
+{
+"Bearer": []
+}
+],
+"responses": {
+"200": {
+"description": "Successful operation",
+"content": {
+"application/json": {
+"schema": {
+"$ref": "#/components/schemas/PetsResponse"
+}
+}
+}
+},
+"500": {
+"description": "Server error"
+}
+}
+}
+}
+},
+"components": {
+"schemas": {
+"RegistrationRequest": {
+"type": "object",
+"properties": {
+"username": {
+"type": "string"
+},
+"password": {
+"type": "string"
+},
+"email": {
+"type": "string"
+}
+}
+},
+"RegistrationResponse": {
+"type": "object",
+"properties": {
+"id": {
+"type": "integer"
+},
+"username": {
+"type": "string"
+},
+"email": {
+"type": "string"
+}
+}
+},
+"LoginRequest": {
+"type": "object",
+"properties": {
+"username": {
+"type": "string"
+},
+"password": {
+"type": "string"
+}
+}
+},
+"LoginResponse": {
+"type": "object",
+"properties": {
+"token": {
+"type": "string"
+}
+}
+},
+"NewsResponse": {
+"type": "array",
+"items": {
+"type": "object",
+"properties": {
+"title": {
+"type": "string"
+},
+"category": {
+"type": "string"
+},
+"content": {
+"type": "string"
+}
+}
+}
+},
+"PetsResponse": {
+"type": "array",
+"items": {
+"type": "object",
+"properties": {
+"name": {
+"type": "string"
+},
+"age": {
+"type": "integer"
+},
+"species": {
+"type": "string"
+}
+}
+}
+}
+},
+"securitySchemes": {
+"Bearer": {
+"type": "http",
+"scheme": "bearer",
+"bearerFormat": "JWT"
+}
+}
+}
 }
