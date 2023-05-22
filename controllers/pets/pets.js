@@ -2,13 +2,10 @@ const { HttpError } = require("../../helpers");
 const { Pet } = require("../../models/pet");
 
 const getAllPets = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id } = req.user;
   const { page = 1, limit = 20 } = req.query;
   const skip = (page - 1) * limit;
-  const data = await Pet.find({ owner }, { skip, limit }).populate(
-    "owner",
-    "email"
-  );
+  const data = await Pet.find({ owner: _id })
   res.status(200).json(data);
 };
 
