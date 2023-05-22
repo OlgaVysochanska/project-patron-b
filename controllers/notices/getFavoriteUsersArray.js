@@ -4,8 +4,8 @@ const { Notice } = require("../../models/notice");
 const { User } = require("../../models");
 
 const getFavoriteUsersArray = async (req, res) => {
-  const { _id } = req.user;
-  const data = await Notice.find({ owner: _id })
+  const { favoriteNotice } = req.user;
+  const data = await Notice.find({ _id: favoriteNotice })
   if (!data) {
     throw HttpError(404, "Not found");
   }
