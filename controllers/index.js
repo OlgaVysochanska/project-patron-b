@@ -23,6 +23,7 @@ const {
   addNoticeCategory,
   addCategory,
   getUsersNotice,
+  getFavoriteUsersArray
 } = require("./notices");
 
 module.exports = {
@@ -50,4 +51,5 @@ module.exports = {
   addNoticeCategory,
   addCategory,
   getUsersNotice,
+  getFavoriteUsersArray,
 };

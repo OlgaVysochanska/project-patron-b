@@ -37,6 +37,8 @@ noticesRouter.patch(
 
 noticesRouter.get("/favorite", authenticate, controllers.getFavoriteUsers);
 
+noticesRouter.get("/favorite/array", authenticate, controllers.getFavoriteUsersArray);
+
 noticesRouter.delete(
   "/favorite/:id",
   authenticate,
