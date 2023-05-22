@@ -12,6 +12,7 @@ const deleteFavoriteNotices = require("./deleteFavorite");
 const addNoticeCategory = require("./addNoticeCategory");
 const addCategory = require("./addCategory");
 const getUsersNotice = require("./getUsersNotice");
+const getFavoriteUsersArray = require("./getFavoriteUsersArray");
 
 module.exports = {
   getAllNotice: ctrlWrapper(getAllNotice),
@@ -27,4 +28,5 @@ module.exports = {
   addNoticeCategory: ctrlWrapper(addNoticeCategory),
   addCategory: ctrlWrapper(addCategory),
   getUsersNotice: ctrlWrapper(getUsersNotice),
+  getFavoriteUsersArray: ctrlWrapper(getFavoriteUsersArray),
 };
