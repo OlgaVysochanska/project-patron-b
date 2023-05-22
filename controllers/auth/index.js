@@ -1,5 +1,3 @@
-
-
 const { ctrlWrapper } = require("../../helpers");
 
 const current = require("./current");
@@ -8,7 +6,7 @@ const logout = require("./logout");
 const patchChanges = require("./patchChanges");
 const register = require("./register");
 const updateAvatar = require("./updateAvatar");
-
+const googleAuth = require("./googleAuth");
 
 module.exports = {
   register: ctrlWrapper(register),
@@ -17,4 +15,5 @@ module.exports = {
   logout: ctrlWrapper(logout),
   patchChanges: ctrlWrapper(patchChanges),
   updateAvatar: ctrlWrapper(updateAvatar),
+  googleAuth: ctrlWrapper(googleAuth),
 };
