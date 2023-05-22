@@ -935,7 +935,10 @@
       },
       "getFavoriteNoticeResponse": {
         "type": "array",
-        "properties": ["noticeId"]
+        "properties": {
+          "type": "object",
+          "description": "Favorite notices"
+        }
       },
       "getUsersNoticeResponse": {
         "type": "array",

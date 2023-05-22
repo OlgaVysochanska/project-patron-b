@@ -35,13 +35,9 @@ noticesRouter.patch(
   controllers.updateStatusFavorite
 );
 
-noticesRouter.get("/favorite", authenticate, controllers.getFavoriteUsers);
+// noticesRouter.get("/favorite", authenticate, controllers.getFavoriteUsers);
 
-noticesRouter.get(
-  "/favorite/array",
-  authenticate,
-  controllers.getFavoriteUsersArray
-);
+noticesRouter.get("/favorite", authenticate, controllers.getFavoriteUsersArray);
 
 noticesRouter.delete(
   "/favorite/:id",
