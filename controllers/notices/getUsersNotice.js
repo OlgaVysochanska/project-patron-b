@@ -9,7 +9,7 @@ const getUsersNotice = async (req, res) => {
   //   const skip = (page - 1) * limit;
   const data = await Notice.find({ owner });
   if (!data) {
-    throw HttpError(404, `Not found`);
+    throw HttpError(404, "Not found");
   }
   res.status(200).json(data);
 };

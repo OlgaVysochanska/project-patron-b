@@ -29,6 +29,9 @@ const getAllNotice = async (req, res) => {
       skip,
       limit,
     });
+    if (!datafind) {
+      throw HttpError(404, "Not found");
+    }
     res.status(200).json(datafind);
     return;
   } else {

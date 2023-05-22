@@ -107,57 +107,7 @@
           }
         }
       }
-    }
-  },
-  "components": {
-    "schemas": {
-      "RegistrationRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "RegistrationResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "LoginRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "LoginResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "pets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Pet"
-            }
-          }
-        }
-      },
+    },
     "/api/friends": {
       "get": {
         "tags": ["Friends"],
@@ -265,6 +215,30 @@
       }
     },
     "/api/notices": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Endpoint for get all notices",
+        "parameters": [],
+        "requestBody": {},
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteNoticeResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
       "post": {
         "tags": ["Notices"],
         "summary": "Endpoint for adding a user's notice",
@@ -460,6 +434,92 @@
           }
         }
       }
+    },
+    "/api/notices/current": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Endpoint for searching all notices current user",
+        "parameters": [{ "in": "user", "name": "userId" }],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getUsersNoticeResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/notices/category": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Endpoint for receiving ads by category",
+        "parameters": [{ "in": "query", "name": "category" }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getNoticeCategoryResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Endpoint for adding ads according to the selected category",
+        "parameters": [
+          { "in": "user", "name": "userId" },
+          { "in": "query", "name": "category" }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "notice object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addNoticeCategoryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addNoticeCategoryResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -496,207 +556,34 @@
           }
         }
       },
-  "components": {
-    "schemas": {
-      "Error400": {
+      "LoginRequest": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message"
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
           }
         }
       },
-      "Error404": {
+      "LoginResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message"
-          }
-        }
-      },
-      "Error500": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message"
-          }
-        }
-      }
-    }
-  },
-  "paths": {
-    "/api/register": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400"
-                }
-              }
-            }
+          "token": {
+            "type": "string"
           },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error500"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/pets": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400"
-                }
-              }
-            }
+          "user": {
+            "$ref": "#/components/schemas/User"
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error404"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error500"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/notices": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error404"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error500"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/favorites": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error404"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error500"
-                }
-              }
+          "pets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pet"
             }
           }
         }
       },
-      "delete": {
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error404"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error500"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
       "addPetsRequest": {
         "type": "object",
         "required": [
@@ -1052,6 +939,194 @@
       "getFavoriteNoticeResponse": {
         "type": "array",
         "properties": ["noticeId"]
+      },
+      "getUsersNoticeResponse": {
+        "type": "array",
+        "properties": ["users notice"]
+      },
+      "getNoticeCategoryResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Pet's title",
+            "format": "name"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "format": "name"
+          },
+          "date": {
+            "type": "string",
+            "description": "Pet's date",
+            "example": "01.01.2000"
+          },
+          "category": {
+            "type": "string",
+            "description": "Pet's category",
+            "example": "sell, my pet, lost-found, for-free"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "labrador"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Pet's avatar"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male, female"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Kyiv"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet's price",
+            "example": "100"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Pet's comments",
+            "example": "This is a good dog"
+          }
+        }
+      },
+      "addNoticeCategoryRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Pet's title",
+            "format": "name"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "format": "name"
+          },
+          "date": {
+            "type": "string",
+            "description": "Pet's date",
+            "example": "01.01.2000"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "labrador"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Pet's avatar"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male, female"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Kyiv"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet's price",
+            "example": "100"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Pet's comments",
+            "example": "This is a good dog"
+          }
+        }
+      },
+      "addNoticeCategoryResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Pet's title",
+            "format": "name"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "format": "name"
+          },
+          "date": {
+            "type": "string",
+            "description": "Pet's date",
+            "example": "01.01.2000"
+          },
+          "category": {
+            "type": "string",
+            "description": "Pet's category",
+            "example": "sell, my pet, lost-found, for-free"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "labrador"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Pet's avatar"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male, female"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Kyiv"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet's price",
+            "example": "100"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Pet's comments",
+            "example": "This is a good dog"
+          }
+        }
+      },
+      "Error400": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          }
+        }
+      },
+      "Error404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          }
+        }
+      },
+      "Error500": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          }
+        }
       }
     },
     "securitySchemas": {
@@ -1063,5 +1138,3 @@
     }
   }
 }
-}
-
