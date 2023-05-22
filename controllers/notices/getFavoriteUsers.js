@@ -1,6 +1,5 @@
 // створити ендпоінт для отримання оголошень авторизованого користувача доданих ним же в обрані
 const { HttpError } = require("../../helpers");
-const { Notice } = require("../../models/notice");
 const { User } = require("../../models");
 
 const getFavoriteUsers = async (req, res) => {

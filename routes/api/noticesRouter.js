@@ -13,7 +13,7 @@ noticesRouter.get("/current", authenticate, controllers.getUsersNotice);
 noticesRouter.post(
   "/",
   authenticate,
-  // validateBody(schemas.addSchema),
+  validateBody(schemas.addSchema),
   controllers.addNotice
 );
 
@@ -37,7 +37,11 @@ noticesRouter.patch(
 
 noticesRouter.get("/favorite", authenticate, controllers.getFavoriteUsers);
 
-noticesRouter.get("/favorite/array", authenticate, controllers.getFavoriteUsersArray);
+noticesRouter.get(
+  "/favorite/array",
+  authenticate,
+  controllers.getFavoriteUsersArray
+);
 
 noticesRouter.delete(
   "/favorite/:id",
