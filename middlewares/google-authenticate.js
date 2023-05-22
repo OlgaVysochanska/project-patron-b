@@ -26,10 +26,32 @@ const googleCallback = async (
     const { email } = profile;
     const user = await User.findOne({ email });
     if (user) {
+      res.status(201).json({
+        token,
+        user: {
+          email: user.email,
+          name: user.name,
+          _id: user._id,
+          birthday: user.birthday,
+          phone: user.phone,
+          city: user.city,
+          avatarURL: user.avatarURL,
+          myAbs: user.myAbs,
+          myPets: user.myPets,
+          favoriteNotice: user.favoriteNotice,
+        },
+        pets,
+      });
       return done(null, user);
     }
     const password = await bcrypt.hash(nanoid(), 10);
     const newUser = await User.create({ email, password });
+    res.status(201).json({
+      user: {
+        email,
+        token,
+      },
+    });
     done(null, newUser);
   } catch (error) {
     done(error, false);
