@@ -15,7 +15,8 @@ router.get(
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { session: false }, ctrl.googleAuth)
+  passport.authenticate("google", { session: false }),
+  ctrl.googleAuth
 );
 
 router.post("/register", validateBody(userValidation), ctrl.register);
