@@ -13,15 +13,7 @@ const googleAuth = async (req, res) => {
 
   const user = await User.findByIdAndUpdate(id, { token });
 
-  res
-    .status(201)
-    .json({
-      user: {
-        email: user.email,
-        token,
-      },
-    })
-    .redirect(`http://localhost:3000?token=${token}`);
+  res.redirect(`http://localhost:3000/register?token=${token}`);
 };
 
 module.exports = googleAuth;
