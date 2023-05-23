@@ -6,7 +6,7 @@ const getAllNotice = async (req, res) => {
     page = 1,
     limit = 20,
     search,
-    age = 'all',
+    age,
     date,
     category = ["sell", "lost-found", "for-free"],
     sex = ["male", "female"],
@@ -16,8 +16,6 @@ const getAllNotice = async (req, res) => {
   let data = await Notice.find({ category, sex }, null, { skip, limit });
 
   let ageData = [];
-
-  console.log(age.split(","));
 
   if (age) {
     const dateTime = new Date();
@@ -53,9 +51,6 @@ const getAllNotice = async (req, res) => {
           }
           break;
         
-        case 'all':
-         ageData=data
-          break;
         default:
           throw HttpError(404, "Not found");
           break;
