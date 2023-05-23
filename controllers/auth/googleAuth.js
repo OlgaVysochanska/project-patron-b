@@ -1,10 +1,6 @@
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models");
-const { HttpError } = require("../../helpers");
-
-const { SECRET_KEY } = process.env;
 
 const googleAuth = async (req, res) => {
   const { _id: id } = req.user;
@@ -15,7 +11,7 @@ const googleAuth = async (req, res) => {
     expiresIn: "23h",
   });
 
-  await User.findByIdAndUpdate(id, { token });
+  const user = await User.findByIdAndUpdate(id, { token });
 
   res.redirect(`http://localhost:3000?token=${token}`);
 };
