@@ -14,8 +14,9 @@ const patchChanges = async (req, res) => {
     res.json(favoriteNotice);
   } else {
     await User.findByIdAndUpdate(_id, req.body);
+    const result = await User.find(_id);
 
-    res.json(req.body);
+    res.json(result);
   }
 };
 

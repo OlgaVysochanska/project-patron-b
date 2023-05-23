@@ -68,10 +68,12 @@ const getAllNotice = async (req, res) => {
       let datName = dat.name.toLowerCase();
       let datLocat = dat.location.toLowerCase();
       let datBreed = dat.breed.toLowerCase();
+      let datTitle = dat.title.toLowerCase();
       if (
         datName.includes(searchLow) ||
         datLocat.includes(searchLow) ||
-        datBreed.includes(searchLow)
+        datBreed.includes(searchLow) ||
+        datTitle.includes(searchLow)
       ) {
         findSearch.push(dat);
       }
