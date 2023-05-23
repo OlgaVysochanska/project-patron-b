@@ -2,11 +2,64 @@ const { HttpError } = require("../../helpers");
 const { Notice } = require("../../models/notice");
 
 const getAllNotice = async (req, res) => {
-  const { page = 1, limit = 20, search, category } = req.query;
+  const {
+    page = 1,
+    limit = 20,
+    search,
+    age,
+    date,
+    category = ["sell", "lost-found", "for-free"],
+    sex = ["male", "female"],
+  } = req.query;
+
   const skip = (page - 1) * limit;
-  const data = category
-    ? await Notice.find({ category }, null, { skip, limit })
-    : await Notice.find({ skip, limit });
+  let data = await Notice.find({ category, sex }, null, { skip, limit });
+
+  let ageData = [];
+
+  if (age) {
+    const dateTime = new Date();
+    age.split(",").map((ag) => {
+      switch (ag) {
+        case '3-12m':
+          for (const dat of data) {
+            if (dateTime.getFullYear() - new Date(dat.date).getFullYear() < 1) {
+              ageData.push(dat);
+            }
+          }
+          break;
+
+        case '1year':
+          for (const dat of data) {
+            if (
+              dateTime.getFullYear() - new Date(dat.date).getFullYear() ===
+              1
+            ) {
+              ageData.push(dat);
+            }
+          }
+          break;
+
+        case '2year':
+          for (const dat of data) {
+            if (
+              dateTime.getFullYear() - new Date(dat.date).getFullYear() ===
+              2
+            ) {
+              ageData.push(dat);
+            }
+          }
+          break;
+        
+        default:
+          throw HttpError(404, "Not found");
+          break;
+      }
+    });
+    data = ageData;
+  }
+
+  // console.log(data);
 
   if (search) {
     const searchLow = search.toLowerCase();
@@ -14,25 +67,19 @@ const getAllNotice = async (req, res) => {
     for (const dat of data) {
       let datName = dat.name.toLowerCase();
       let datLocat = dat.location.toLowerCase();
-      let datSex = dat.sex.toLowerCase();
       let datBreed = dat.breed.toLowerCase();
       if (
         datName.includes(searchLow) ||
         datLocat.includes(searchLow) ||
-        datSex.includes(searchLow) ||
         datBreed.includes(searchLow)
       ) {
-        findSearch.push(dat._id);
+        findSearch.push(dat);
       }
     }
-    const datafind = await Notice.find({ _id: findSearch }, null, {
-      skip,
-      limit,
-    });
-    if (!datafind) {
+    if (!findSearch) {
       throw HttpError(404, "Not found");
     }
-    res.status(200).json(datafind);
+    res.status(200).json(findSearch);
     return;
   } else {
     res.status(200).json(data);
