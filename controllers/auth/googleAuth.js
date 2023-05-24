@@ -16,7 +16,7 @@ const googleAuth = async (req, res) => {
   res.set({
     Authorization: token,
   });
-  res.redirect(`http://localhost:3000/user?token=${token}`);
+  res.redirect(`http://localhost:3000?code=${token}`);
 };
 
 module.exports = googleAuth;
