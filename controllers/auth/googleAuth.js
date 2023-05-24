@@ -14,9 +14,9 @@ const googleAuth = async (req, res) => {
   const user = await User.findByIdAndUpdate(id, { token });
 
   res.set({
-    Authorization: token,
+    Authorization: `Bearer ${token}`,
   });
-  res.redirect(`http://localhost:3000?code=${token}`);
+  res.redirect(`http://localhost:3000/temp?code=${token}`);
 };
 
 module.exports = googleAuth;
