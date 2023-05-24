@@ -21,7 +21,7 @@ router.get(
 
 router.post("/register", validateBody(userValidation), ctrl.register);
 
-router.post("/login", validateBody(userValidation), ctrl.login);
+router.post("/login", ctrl.login);
 
 router.get("/current", authenticate, ctrl.current);
 
