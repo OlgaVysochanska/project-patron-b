@@ -4,16 +4,15 @@ const { Notice } = require("../../models/notice");
 const getAllNotice = async (req, res) => {
   const {
     page = 1,
-    limit = 20,
+    limit = 12,
     search,
     age,
-    date,
     category = ["sell", "lost-found", "for-free"],
-    sex = ["male", "female"],
+    sex ,
   } = req.query;
 
   const skip = (page - 1) * limit;
-  let data = await Notice.find({ category, sex }, null, { skip, limit });
+  let data = await Notice.find({ category, sex: (sex === "") ? ["male", "female"] : sex }, null, { skip, limit });
 
   let ageData = [];
 
