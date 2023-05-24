@@ -13,7 +13,10 @@ const googleAuth = async (req, res) => {
 
   const user = await User.findByIdAndUpdate(id, { token });
 
-  res.redirect(`http://localhost:3000?token=${token}`);
+  res.header("Authorization", token);
+  res.redirect(
+    `https://patron-back.onrender.com/api/auth/current?token=${token}`
+  );
 };
 
 module.exports = googleAuth;
