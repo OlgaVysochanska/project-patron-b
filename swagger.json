@@ -31,7 +31,7 @@
     }
   ],
   "paths": {
-    "/api/register": {
+    "/api/auth/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -63,7 +63,7 @@
         }
       }
     },
-    "/api/login": {
+    "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -94,7 +94,7 @@
         }
       }
     },
-    "/api/logout": {
+    "/api/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
