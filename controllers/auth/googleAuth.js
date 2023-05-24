@@ -13,7 +13,9 @@ const googleAuth = async (req, res) => {
 
   const user = await User.findByIdAndUpdate(id, { token });
 
-  res.header("Authorization", token);
+  res.set({
+    Authorization: token,
+  });
   res.redirect(`http://localhost:3000/user?token=${token}`);
 };
 
