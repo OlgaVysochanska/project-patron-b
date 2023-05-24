@@ -5,14 +5,9 @@ const { Notice } = require("../../models/notice");
 const getCategory = async (req, res) => {
   const { category } = req.query;
   const { page = 1, limit = 2 } = req.query;
-  const skip = (page - 1) * limit;
-  const data = await Notice.find(
-    { category },
-    {
-      skip,
-      limit: Number(limit),
-    }
-  );
+  const data = await Notice.find({ category })
+    .limit(limit * 1)
+    .skip((page - 1) * limit);
   if (!data) {
     throw HttpError(404, `${category} not found`);
   }
