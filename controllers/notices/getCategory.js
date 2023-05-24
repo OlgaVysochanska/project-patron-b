@@ -11,7 +11,7 @@ const getCategory = async (req, res) => {
   if (!data) {
     throw HttpError(404, `${category} not found`);
   }
-  const count = await Product.countDocuments();
+  const count = await Notice.countDocuments();
   res.status(200).json({
     data,
     totalPages: Math.ceil(count / limit),
