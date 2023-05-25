@@ -79,15 +79,11 @@ const getAllNotice = async (req, res) => {
         findSearch.push(dat);
       }
     }
-    if (findSearch.length === 0) {
-      throw HttpError(404, "Not found");
-    }
+
     res.status(200).json(findSearch);
     return;
   } else {
-    if (data.length === 0) {
-      throw HttpError(404, "Not found");
-    }
+
     res.status(200).json(data);
   }
 };
