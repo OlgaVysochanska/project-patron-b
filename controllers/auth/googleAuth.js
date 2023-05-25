@@ -16,7 +16,7 @@ const googleAuth = async (req, res) => {
   res.set({
     Authorization: `Bearer ${token}`,
   });
-  res.redirect(`http://localhost:3000/temp?code=${token}`);
+  res.redirect(`https://patron4u-pet-app.netlify.app/temp?code=${token}`);
 };
 
 module.exports = googleAuth;
