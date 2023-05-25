@@ -11,10 +11,10 @@ const getAllNotice = async (req, res) => {
     sex,
   } = req.query;
 
-  const csex = (sex === "" || sex === undefined) ? ["male", "female"] : sex
+  const csex = sex === "" || sex === undefined ? ["male", "female"] : sex;
 
   const skip = (page - 1) * limit;
-  let data = await Notice.find({ category, sex: csex}, null, { skip, limit });
+  let data = await Notice.find({ category, sex: csex }, null, { skip, limit });
 
   let ageData = [];
 
@@ -22,7 +22,7 @@ const getAllNotice = async (req, res) => {
     const dateTime = new Date();
     age.split(",").map((ag) => {
       switch (ag) {
-        case '3-12m':
+        case "3-12m":
           for (const dat of data) {
             if (dateTime.getFullYear() - new Date(dat.date).getFullYear() < 1) {
               ageData.push(dat);
@@ -30,7 +30,7 @@ const getAllNotice = async (req, res) => {
           }
           break;
 
-        case '1year':
+        case "1year":
           for (const dat of data) {
             if (
               dateTime.getFullYear() - new Date(dat.date).getFullYear() ===
@@ -41,7 +41,7 @@ const getAllNotice = async (req, res) => {
           }
           break;
 
-        case '2year':
+        case "2year":
           for (const dat of data) {
             if (
               dateTime.getFullYear() - new Date(dat.date).getFullYear() ===
@@ -51,7 +51,7 @@ const getAllNotice = async (req, res) => {
             }
           }
           break;
-        
+
         default:
           throw HttpError(404, "Not found");
           break;
@@ -85,6 +85,9 @@ const getAllNotice = async (req, res) => {
     res.status(200).json(findSearch);
     return;
   } else {
+    if (data.length === 0) {
+      throw HttpError(404, "Not found");
+    }
     res.status(200).json(data);
   }
 };
