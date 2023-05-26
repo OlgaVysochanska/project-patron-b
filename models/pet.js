@@ -52,7 +52,7 @@ const addSchema = Joi.object({
     .required(),
   breed: Joi.string().required().min(2).max(16),
   petURL: Joi.string().required().max(300000),
-  comments: Joi.string().required().min(8).max(120),
+  comments: Joi.string(),
 });
 
 const schemas = {

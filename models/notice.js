@@ -83,7 +83,8 @@ const addSchema = Joi.object({
   sex: Joi.string().required().valid("male", "female"),
   location: Joi.string().required().pattern(validSity),
   price: Joi.number().min(1),
-  comments: Joi.string().required().min(8).max(120),
+  comments: Joi.string(),
+
 });
 
 const schemas = {
