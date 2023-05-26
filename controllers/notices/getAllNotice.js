@@ -14,7 +14,7 @@ const getAllNotice = async (req, res) => {
   const csex = sex === "" || sex === undefined ? ["male", "female"] : sex;
 
   const skip = (page - 1) * limit;
-  let data = await Notice.find({ category, sex: csex }, null, { skip, limit });
+  let data = await Notice.find({ category, sex: csex }, null, { skip, limit }).sort({ _id: -1 });
 
   let ageData = [];
 
