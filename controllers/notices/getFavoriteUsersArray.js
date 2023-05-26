@@ -8,7 +8,8 @@ const getFavoriteUsersArray = async (req, res) => {
   const { page = 1, limit = 12 } = req.query;
   const data = await Notice.find({ _id: favoriteNotice })
     .limit(limit * 1)
-    .skip((page - 1) * limit);
+    .skip((page - 1) * limit)
+    .sort({ createdAt: -1 });
   if (!data) {
     throw HttpError(404, "Not found");
   }

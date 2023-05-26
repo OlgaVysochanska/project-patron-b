@@ -40,7 +40,7 @@ const petSchema = new Schema(
       required: true,
     },
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: true }
 );
 petSchema.post("save", handleSchemaErrors);
 
